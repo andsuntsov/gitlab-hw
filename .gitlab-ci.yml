@@ -1,0 +1,34 @@
+@"
+stages: [build, test, deploy]
+
+build-job:
+  stage: build
+  tags: ["docker"]
+  image: alpine:latest
+  script:
+    - echo "Build OK"
+    - mkdir -p build
+    - echo "Build done" > build/artifact.txt
+  artifacts:
+    paths: ["build/artifact.txt"]
+    expire_in: 1 day
+
+test-job:
+  stage: test
+  tags: ["docker"]
+  image: alpine:latest
+  script:
+    - echo "Run tests"
+    - cat build/artifact.txt
+
+deploy-job:
+  stage: deploy
+  tags: ["docker"]
+  image: alpine:latest
+  script:
+    - echo "Deploy OK"
+"@ | Out-File -FilePath .gitlab-ci.yml -Encoding UTF8
+
+git add .gitlab-ci.yml
+git commit -m "Add CI pipeline"
+git push
