@@ -1,4 +1,3 @@
-@"
 stages: [build, test, deploy]
 
 build-job:
@@ -27,8 +26,3 @@ deploy-job:
   image: alpine:latest
   script:
     - echo "Deploy OK"
-"@ | Out-File -FilePath .gitlab-ci.yml -Encoding UTF8
-
-git add .gitlab-ci.yml
-git commit -m "Add CI pipeline"
-git push
